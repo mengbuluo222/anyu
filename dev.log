@@ -1,0 +1,16 @@
+
+> anyu@0.1.0 dev
+> next dev -p 3115
+
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3115
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 5.5s
+ ✓ Compiled /api/chat in 219ms (31 modules)
+ POST /api/chat 200 in 7529ms
+ POST /api/chat 200 in 8391ms
+ POST /api/chat 200 in 938ms
+ POST /api/chat 200 in 9240ms
+[?25h
