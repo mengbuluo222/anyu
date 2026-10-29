@@ -66,12 +66,33 @@ curl "https://你的域名/api/stats?days=7&token=$STATS_TOKEN"
 
 返回按天倒序的 `uv`（HyperLogLog 去重人数）与各事件次数，另附累计 `total`。
 
-## 部署（Vercel）
+## 部署
+
+### Vercel
 
 1. 推到 Git 仓库，Vercel 导入，根目录选 `anyu`
 2. 环境变量配置 `AI_BASE_URL`、`AI_API_KEY`、`AI_MODEL`、`NEXT_PUBLIC_SITE_URL`
 3. 需要自建计数时，在 Vercel 里创建 Upstash Redis 集成，自动注入 `UPSTASH_REDIS_REST_*`
 4. 部署完成后在 Vercel 绑定自定义域名
+
+### Cloudflare Workers（OpenNext）
+
+已接入 `@opennextjs/cloudflare`，配置文件为 `wrangler.jsonc` 与 `open-next.config.ts`。
+
+```bash
+npx wrangler login
+npm run preview   # 本地 workerd 预览（.dev.vars 提供环境变量）
+npm run deploy    # 构建并发布
+```
+
+密钥通过 `npx wrangler secret put <NAME>` 配置，需设置：`AI_BASE_URL`、`AI_API_KEY`、`AI_MODEL`、`STATS_TOKEN`，以及可选的 `UPSTASH_REDIS_REST_URL`、`UPSTASH_REDIS_REST_TOKEN`。
+`NEXT_PUBLIC_SITE_URL` 是构建期变量，本地写进 `.env.production`，Git 集成部署则在 Cloudflare 控制台 Build → Variables 配置。
+
+注意：
+
+- 构建前确保 `NODE_ENV=production`，否则 Next 会以开发模式产物输出并报 `useContext` 错误
+- `@vercel/analytics` 在 Cloudflare 上不生效，匿名计数只走 `/api/track` + Upstash
+- 免费版 Worker 体积上限为 gzip 后 3 MiB，当前产物约 725 KiB
 
 ## 合规约束（改代码时别破）
 

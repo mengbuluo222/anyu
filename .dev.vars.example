@@ -1,0 +1,15 @@
+# 后端代理使用的模型服务配置（不要加 NEXT_PUBLIC_ 前缀，避免暴露到前端）
+# 兼容 OpenAI 格式的接口均可；硅基流动免费可用 Qwen/Qwen3-8B
+AI_BASE_URL=https://api.deepseek.com/v1
+AI_API_KEY=sk-xxxxxxxxxxxxxxxx
+AI_MODEL=deepseek-chat
+
+# 站点地址（用于 og / sitemap 绝对链接）
+NEXT_PUBLIC_SITE_URL=https://anyu.example.com
+
+# 匿名计数（可选）：Vercel 控制台创建 Upstash Redis 后填入，不填则埋点自动失效
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+
+# /api/stats 读取口令，必填，否则统计接口一律拒绝
+STATS_TOKEN=换成一段随机长字符串
